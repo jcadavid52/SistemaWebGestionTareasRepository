@@ -1,0 +1,118 @@
+<main class="flex-1 overflow-y-auto p-8">
+  @if (tasksQuery.isLoading()) {
+  <p>Cargando tareas...</p>
+  } @else if (tasksQuery.isError()) {
+  <p style="color: red">Error al cargar las tareas: {{ tasksQuery.error().message }}</p>
+  }@else {
+
+  <div class="mx-auto max-w-7xl">
+    <header class="mb-6">
+      <div class="flex flex-wrap items-start justify-between gap-4">
+        <h1 class="text-lg font-bold leading-tight tracking-tight text-gray-900 dark:text-white">
+          {{ tasksQuery.data()?.task?.title }}
+        </h1>
+        <div class="flex items-center gap-2">
+          <button
+            class="flex cursor-pointer items-center justify-center overflow-hidden rounded-lg h-9 px-3 bg-gray-200 text-gray-800 text-sm font-medium hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
+          >
+            <span class="material-symbols-outlined text-base mr-1.5">delete</span>
+            <span class="truncate">Delete Task</span>
+          </button>
+        </div>
+      </div>
+    </header>
+    <form [formGroup]="taskEditForm" (submit)="onSubmit()">
+      <div class="grid grid-cols-1 gap-8 lg:grid-cols-3" >
+        <div class="lg:col-span-2 space-y-8">
+          <div
+            class="rounded-xl border border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-gray-800"
+          >
+            <h2
+              class="text-lg font-bold leading-tight tracking-tight text-gray-900 dark:text-white"
+            >
+              Title
+            </h2>
+            <div class="mt-4 flex items-start gap-3">
+              <textarea
+                class="form-input flex-1 resize-none rounded-lg border border-gray-300 bg-white p-3 text-sm placeholder:text-gray-400 focus:border-primary focus:ring-primary dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200"
+                placeholder="Agrega un título..."
+                rows="2"
+                formControlName="title"
+                >{{ tasksQuery.data()?.task?.title }}</textarea
+              >
+            </div>
+            @if(submitted() && taskEditForm.get('title')?.hasError('required') ) {
+            <p class="mt-2 text-xs text-rose-600">El título es requerido</p>
+            }
+          </div>
+          <div
+            class="rounded-xl border border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-gray-800"
+          >
+            <h2
+              class="text-lg font-bold leading-tight tracking-tight text-gray-900 dark:text-white"
+            >
+              Descripción
+            </h2>
+            <div class="mt-4">
+              <textarea
+                formControlName="description"
+                class="form-input w-full resize-none rounded-lg border border-gray-300 bg-white p-4 text-sm text-gray-800 placeholder:text-gray-400 focus:border-primary focus:ring-primary dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 dark:placeholder:text-gray-500"
+                placeholder="Agrega una descripción..."
+                rows="5"
+                >{{ tasksQuery.data()?.task?.description }}</textarea
+              >
+              @if(submitted() && taskEditForm.get('description')?.hasError('required') ) {
+              <p class="mt-2 text-xs text-rose-600">La descripción es requerida</p>
+              }
+            </div>
+          </div>
+          <div>
+            <input formControlName="id" hidden type="text" [value]="tasksQuery.data()?.task?.id" />
+          </div>
+        </div>
+        <div class="lg:col-span-1">
+          <div
+            class="space-y-4 rounded-xl border border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-gray-800"
+          >
+            <div>
+              <label
+                class="block text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400"
+                >Fecha Creación</label
+              >
+              {{ tasksQuery.data()?.task?.createAt }}
+            </div>
+            <div>
+              <label
+                class="block text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400"
+                >Estado</label
+              >
+              <div class="mt-2 flex flex-wrap gap-2">
+                @if( tasksQuery.data()?.task?.status === "Completado"){
+                <span
+                  class="inline-flex items-center rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900 dark:text-green-200"
+                  >{{ tasksQuery.data()?.task?.status }}</span
+                >
+                }@else {
+                <span
+                  class="inline-flex items-center rounded-full bg-yellow-100 px-2.5 py-0.5 text-xs font-medium text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300"
+                  >{{ tasksQuery.data()?.task?.status }}</span
+                >
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="flex items-center gap-2 justify-center m-2">
+        <button
+          type="submit"
+          class="flex cursor-pointer items-center justify-center overflow-hidden rounded-lg h-9 px-3 bg-gray-200 text-gray-800 text-sm font-medium hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
+        >
+          <span class="material-symbols-outlined text-base mr-1.5">edit</span>
+          <span class="truncate">Modificar Tarea</span>
+        </button>
+      </div>
+    </form>
+  </div>
+  }
+</main>

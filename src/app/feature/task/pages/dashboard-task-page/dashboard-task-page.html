@@ -1,0 +1,70 @@
+@if (tasksQuery.isLoading()) {
+<p>Cargando dashboard...</p>
+}@else if (tasksQuery.isError()) {
+<p style="color: red">Error al cargar las dashboard: {{ tasksQuery.error().message }}</p>
+}@else {
+
+<main class="flex-1 p-8">
+  <div class="max-w-7xl mx-auto">
+    <div class="flex flex-wrap justify-between gap-3">
+      <div class="flex min-w-72 flex-col gap-2">
+        <p
+          class="text-gray-900 dark:text-white text-4xl font-black leading-tight tracking-[-0.033em]"
+        >
+          Bienvenido de nuevo, {{user()?.fullName}}!
+        </p>
+        <p class="text-gray-500 dark:text-gray-400 text-base font-normal leading-normal">
+          Aquí tienes un resumen de tus tareas para hoy.
+        </p>
+      </div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
+      <div
+        class="flex flex-col gap-2 rounded-xl p-6 bg-white border border-gray-200 dark:bg-background-dark dark:border-gray-700"
+      >
+        <div class="flex items-center justify-between">
+          <p class="text-gray-800 dark:text-gray-200 text-base font-medium leading-normal">
+            Tareas totales
+          </p>
+          <div class="p-2 bg-primary/10 rounded-lg text-primary">
+            <span class="material-symbols-outlined">list_alt</span>
+          </div>
+        </div>
+        <p class="text-gray-900 dark:text-white tracking-light text-4xl font-bold leading-tight">
+          {{totalCounts()}}
+        </p>
+      </div>
+      <div
+        class="flex flex-col gap-2 rounded-xl p-6 bg-white border border-gray-200 dark:bg-background-dark dark:border-gray-700"
+      >
+        <div class="flex items-center justify-between">
+          <p class="text-gray-800 dark:text-gray-200 text-base font-medium leading-normal">
+            Completadas
+          </p>
+          <div class="p-2 bg-green-500/10 rounded-lg text-green-600 dark:text-green-400">
+            <span class="material-symbols-outlined">check_circle</span>
+          </div>
+        </div>
+        <p class="text-gray-900 dark:text-white tracking-light text-4xl font-bold leading-tight">
+          {{completed()}}
+        </p>
+      </div>
+      <div
+        class="flex flex-col gap-2 rounded-xl p-6 bg-white border border-gray-200 dark:bg-background-dark dark:border-gray-700"
+      >
+        <div class="flex items-center justify-between">
+          <p class="text-gray-800 dark:text-gray-200 text-base font-medium leading-normal">
+            Pendientes
+          </p>
+          <div class="p-2 bg-yellow-500/10 rounded-lg text-yellow-600 dark:text-yellow-400">
+            <span class="material-symbols-outlined">pending</span>
+          </div>
+        </div>
+        <p class="text-gray-900 dark:text-white tracking-light text-4xl font-bold leading-tight">
+          {{pending()}}
+        </p>
+      </div>
+    </div>
+  </div>
+</main>
+}

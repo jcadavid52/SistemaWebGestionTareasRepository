@@ -1,0 +1,14 @@
+<div class="mt-8 flex flex-col gap-2">
+ 
+
+  <ul>
+    @for (task of taskList; track task.id) {
+    <app-task-component [task]="task"></app-task-component>
+    } @empty {
+    <p>No se encontraron tareas.</p>
+    }
+  </ul>
+
+</div>
+
+

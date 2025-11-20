@@ -1,0 +1,97 @@
+<div class="bg-background-light dark:bg-background-dark font-display">
+  <div
+    class="relative flex h-screen min-h-screen w-full flex-col text-[#333333] dark:text-gray-200 group/design-root overflow-hidden"
+  >
+    <div class="flex h-full w-full grow">
+      <aside
+        class="flex h-full w-64 shrink-0 flex-col justify-between border-r border-gray-200 dark:border-gray-700 bg-white dark:bg-background-dark p-6"
+      >
+        <div class="flex flex-col gap-8">
+          <div class="flex items-center gap-3 text-primary">
+            <div class="size-6">
+              <svg fill="currentColor" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                <g clip-path="url(#clip0_6_319)">
+                  <path
+                    d="M8.57829 8.57829C5.52816 11.6284 3.451 15.5145 2.60947 19.7452C1.76794 23.9758 2.19984 28.361 3.85056 32.3462C5.50128 36.3314 8.29667 39.7376 11.8832 42.134C15.4698 44.5305 19.6865 45.8096 24 45.8096C28.3135 45.8096 32.5302 44.5305 36.1168 42.134C39.7033 39.7375 42.4987 36.3314 44.1494 32.3462C45.8002 28.361 46.2321 23.9758 45.3905 19.7452C44.549 15.5145 42.4718 11.6284 39.4217 8.57829L24 24L8.57829 8.57829Z"
+                  ></path>
+                </g>
+                <defs>
+                  <clipPath id="clip0_6_319">
+                    <rect fill="white" height="48" width="48"></rect>
+                  </clipPath>
+                </defs>
+              </svg>
+            </div>
+            <h2
+              class="text-[#333333] dark:text-white text-xl font-bold leading-tight tracking-[-0.015em]"
+            >
+              Gestión de tareas
+            </h2>
+          </div>
+          <div class="flex flex-col gap-4">
+            <div class="relative">
+              <span
+                class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+                >search</span
+              >
+              <input
+                class="w-full rounded-lg border-gray-200 dark:border-gray-700 bg-background-light dark:bg-gray-800 py-2 pl-10 pr-4 text-sm focus:border-primary focus:ring-primary dark:placeholder-gray-500"
+                placeholder="Search tasks..."
+                type="text"
+              />
+            </div>
+            <div class="flex flex-col gap-2 pt-4">
+              <a
+                class="flex items-center gap-3 rounded-lg bg-primary/20 px-3 py-2 text-primary"
+                routerLink="dashboard"
+              >
+                <span class="material-symbols-outlined fill">dashboard</span>
+                <p class="text-sm font-medium leading-normal">Dashboard</p>
+              </a>
+              <a
+                class="flex items-center gap-3 rounded-lg bg-primary/20 px-3 py-2 text-primary"
+                routerLink="task-list"
+              >
+                <span class="material-symbols-outlined">list_alt</span>
+                <p class="text-sm font-medium leading-normal">Todas las tareas</p>
+                <span class="ml-auto text-xs font-semibold">{{totalCountTask()}}</span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="flex items-center gap-3 border-t border-gray-200 dark:border-gray-700 pt-4">
+          <div
+            class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10"
+            data-alt="User avatar image"
+            style="
+              background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBsmowLCOrZM3uCUpj56ldlaiB77bvPKTWRP8F83N-8leR_26lEbPzAJ4X05gPCBioKRzdebFJ_3gg0XZEFaA5GGvSECRQflvltw0SNKaGgugihn5Q7AuFExFa1ZhJQz8B72hH8H80rvAGR0TgpUNxF9JbnzIEtTVCuHlsUe6_KDY4qxJu1222gWIuJIherEYV0RrjHWi0DWhWXsictvLuaoCf96_u9Xx1WYwCTaBtYHIc2DFGbtpX3EgejEu9lQ19sqzb9_SCAwUs');
+            "
+          ></div>
+          <div class="flex flex-col">
+            <p class="text-sm font-medium text-[#333333] dark:text-white">{{ user()?.fullName }}</p>
+            <p class="text-xs text-gray-500 dark:text-gray-400">{{ user()?.email }}</p>
+          </div>
+          <button
+            class="ml-auto text-gray-500 dark:text-gray-400 hover:text-[#333333] dark:hover:text-white"
+            (click)="closeSession()"
+          >
+            <span class="material-symbols-outlined">logout</span>
+          </button>
+        </div>
+      </aside>
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+  <!-- <div>
+    <button (click)="closeSession()">Cerrar Sesion</button>
+    <p>master-layout works!</p>
+    <ul>
+      <li>
+        <a routerLink="dashboard">Home</a>
+      </li>
+      <li>
+        <a routerLink="task-list">Task</a>
+      </li>
+    </ul>
+  </div> -->
+</div>

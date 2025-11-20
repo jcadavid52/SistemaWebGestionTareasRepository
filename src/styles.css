@@ -1,1 +1,31 @@
 /* You can add global styles to this file, and also import other style files */
+@import 'tailwindcss';
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+
+.snackbar-success {
+  --mat-snack-bar-container-color: #11ae2e; 
+  --mat-snack-bar-supporting-text-color: white;
+  --mat-snack-bar-button-color: white; 
+}
+
+.snackbar-success .mdc-snackbar__surface {
+    border-radius: 50px !important;
+}
+
+.snackbar-error {
+  --mat-snack-bar-container-color: #e63d35; 
+  --mat-snack-bar-supporting-text-color: white;
+  --mat-snack-bar-button-color: white; 
+}
+
+.snackbar-error .mdc-snackbar__surface {
+    border-radius: 50px !important;
+}
