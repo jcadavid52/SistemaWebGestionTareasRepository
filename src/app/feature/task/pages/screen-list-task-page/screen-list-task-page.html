@@ -1,38 +1,56 @@
-<div class="flex justify-center gap-5">
-  <main class="overflow-y-auto h-screen">
-    <div class="mx-auto max-w-4xl px-8 py-6">
-      <header class="flex flex-wrap items-center justify-between gap-4 whitespace-nowrap py-3">
-        <div class="flex items-center gap-4">
-          <p class="dark:text-white text-4xl font-black leading-tight tracking-[-0.033em]">
-            Tareas
-          </p>
-        </div>
+<div class="flex p-4 lg:gap-3">
+  <div  class="max-w-3xl basis-full lg:basis-[65%]">
+    <header class="flex flex-wrap items-center justify-between gap-4 whitespace-nowrap py-3">
+      <div class="flex items-center gap-4">
+        <p class="dark:text-white text-4xl font-black leading-tight tracking-[-0.033em]">Tareas</p>
+           <button
+          class="cursor-pointer lg:hidden p-2 rounded-md bg-gray-100 dark:hover:bg-gray-700 text-danger"
+          (click)="onModal()"
+        >
+          <span class="material-symbols-outlined text-lg">add</span>
+        </button>
+      </div>
 
-        <div class="flex items-center gap-4">
-          <div>
-            <label class="m-2" for="status-filter">Filtrar</label>
-            <select
-              class="w-48 rounded-lg border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 py-2 pl-3 pr-8 text-sm focus:border-primary focus:ring-primary dark:placeholder-gray-500 text-[#333333] dark:text-gray-200"
-              id="status-filter"
-              name="status-filter"
-              (change)="onStatusChange($event)"
-            >
-              <option selected="" value="">Todas</option>
-              <option value="Pendiente">Pendientes</option>
-              <option value="Completado">Completadas</option>
-            </select>
-          </div>
+      <div class="flex items-center gap-4">
+        <div>
+          <label class="m-2" for="status-filter">Filtrar</label>
+          <select
+            class="w-48 rounded-lg border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 py-2 pl-3 pr-8 text-sm focus:border-primary focus:ring-primary dark:placeholder-gray-500 text-[#333333] dark:text-gray-200"
+            id="status-filter"
+            name="status-filter"
+            (change)="onStatusChange($event)"
+          >
+            <option selected="" value="">Todas</option>
+            <option value="Pendiente">Pendientes</option>
+            <option value="Completado">Completadas</option>
+          </select>
         </div>
-      </header>
-      @if (tasksQuery.isLoading()) {
-      <p>Cargando tareas...</p>
-      } @else if (tasksQuery.isError()) {
-      <p style="color: red">Error al cargar las tareas: {{ tasksQuery.error().message }}</p>
-      } @else {
-      <app-list-task-component [taskList]="tasksQuery.data()?.tasks || []"></app-list-task-component>
+      </div>
+    </header>
+    @if (tasksQuery.isLoading()) {
+    <p>Cargando tareas...</p>
+    } @else if (tasksQuery.isError()) {
+    <p style="color: red">Error al cargar las tareas: {{ tasksQuery.error().message }}</p>
+    } @else {
+    <app-list-task-component [taskList]="tasksQuery.data()?.tasks || []"></app-list-task-component>
     }
-    <app-paginator-component [pageSize]="tasksQuery.data()?.pageSize || null" (pageChange)="onPageChange($event)" [totalCountTask]="this.status() === '' ? totalCountTask() : totalFilterCountTask()"></app-paginator-component>
-    </div>
-  </main>
-  <app-form-add-task-component></app-form-add-task-component>
+    <app-paginator-component
+      [pageSize]="tasksQuery.data()?.pageSize || null"
+      (pageChange)="onPageChange($event)"
+      [totalCountTask]="this.status() === '' ? totalCountTask() : totalFilterCountTask()"
+    ></app-paginator-component>
+  </div>
+
+  <div class="hidden lg:block w-96 max-w-md max-h-[400px] overflow-auto basis-[35%]">
+    <app-form-add-task-component></app-form-add-task-component>
+  </div>
 </div>
+
+<ng-template #modalAddFormTask>
+  <mat-dialog-content>
+    <app-form-add-task-component></app-form-add-task-component>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button [mat-dialog-close]="true">Cancelar</button>
+  </mat-dialog-actions>
+</ng-template>

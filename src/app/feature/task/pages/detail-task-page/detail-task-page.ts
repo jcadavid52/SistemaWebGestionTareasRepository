@@ -1,7 +1,7 @@
 import { Component, effect, inject, signal } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { TasksResponseModel } from '../../models/tasks-response-model';
-import { injectQuery } from '@tanstack/angular-query-experimental';
+import { injectQuery, QueryClient } from '@tanstack/angular-query-experimental';
 import { TaskApiService } from '../../services/task-api-service';
 import { firstValueFrom } from 'rxjs';
 import { TaskResponseModel } from '../../models/task-response-model';
@@ -13,7 +13,7 @@ import { TaskUpdateModel } from '../../models/task-update-model';
 
 @Component({
   selector: 'app-detail-task-page',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule,RouterLink],
   templateUrl: './detail-task-page.html',
   styleUrl: './detail-task-page.css',
 })
@@ -22,6 +22,8 @@ export class DetailTaskPage {
   taskApiService = inject(TaskApiService);
   formBuilder = inject(FormBuilder);
   notificationService = inject(NotificationService);
+  router = inject(Router);
+  queryClient = inject(QueryClient);
 
   idTask = signal<number>(0);
   taskSignal = signal<TaskModel | null>(null);
@@ -67,6 +69,26 @@ export class DetailTaskPage {
     title: ['', [Validators.required]],
     description: ['', [Validators.required]],
   })
+
+  deleteTask(id?: number) {
+    this.taskApiService.deleteTask(id).subscribe(
+      {
+        next: () => {
+          this.notificationService.showSuccessNotification("Eliminado con éxito!");
+          this.queryClient.invalidateQueries({
+            queryKey: ['tasks']
+          });
+          this.queryClient.invalidateQueries({ queryKey: ['tasks-dashboard'] });
+          this.router.navigate(['task/task-list']);
+        },
+        error: (error: HttpErrorResponse) => {
+          if (error.status === 404) {
+            this.notificationService.showErrorNotification("Error: no se encontró recurso, intente más tarde");
+          }
+        }
+      }
+    )
+  }
 
   onSubmit() {
     this.submitted.set(true);

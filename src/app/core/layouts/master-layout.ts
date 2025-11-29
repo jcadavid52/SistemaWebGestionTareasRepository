@@ -6,8 +6,8 @@ import { useTaskDashboardQuery } from '../../feature/task/hooks/dashboard-query-
 
 
 @Component({
-  selector: 'app-task-layout',
-  imports: [RouterOutlet, RouterLink],
+  selector: 'app-master-layout',
+  imports: [RouterLink, RouterOutlet],
   templateUrl: './master-layout.html',
   styleUrl: './master-layout.css',
 })
@@ -19,9 +19,16 @@ export class MasterLayout {
   dashboard = useTaskDashboardQuery();
   totalCountTask = computed(() => this.dashboard.data()?.total);
 
+  isMenuOpen = signal(false);
+
+
   closeSession() {
     this.authApiService.logout();
     this.router.navigate(['auth/login']);
+  }
+
+  toggleMenu(){
+    this.isMenuOpen.set(!this.isMenuOpen())
   }
   
 }
