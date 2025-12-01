@@ -1,10 +1,8 @@
 <form class="space-y-5" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
   <div>
-    <label class="text-sm font-medium text-slate-700 dark:text-slate-200 mb-1">
-      Usuario
-    </label>
+    <label class="text-sm font-medium text-slate-700 dark:text-slate-200 mb-1"> Usuario </label>
     <input
-    autoComplete="current-username"
+      autoComplete="current-username"
       name="username"
       formControlName="username"
       type="text"
@@ -30,6 +28,11 @@
     @if(submitted() && loginForm.get('password')?.hasError('required') ) {
     <p class="mt-2 text-xs text-rose-600">La contraseña es requerida</p>
     }
+  </div>
+  <div class="dark:text-gray-200 flex items-center justify-between">
+    <p>¿No tienes una cuenta?</p>
+
+    <a class="text-blue-400 underline" routerLink="/auth/register">Registro Aquí</a>
   </div>
   <button
     type="submit"

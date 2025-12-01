@@ -7,6 +7,7 @@ import { AuthorizedResponseModel } from '../models/authorized-response-model';
 import { AuthTokenService } from './auth-token-service';
 import { catchError, map, Observable, of, throwError } from 'rxjs';
 import { RefreshTokenModel } from '../models/refresh-token-model';
+import { RegisterModel } from '../models/register-model';
 
 
 type AuthStatus = 'checking' | 'authenticated' | 'not-authenticated';
@@ -55,6 +56,17 @@ export class AuthApiService {
   login(loginModel: LoginModel): Observable<boolean> {
     return this.httpClient
       .post<AuthorizedResponseModel>(`${baseUrl}/auth/login`, loginModel)
+      .pipe(
+        map(resp => {
+          return this.handleAuthSuccess(resp);
+        }),
+        catchError(err => this.handleAuthError(err))
+      );
+  }
+
+  register(registerModel:RegisterModel): Observable<boolean> {
+    return this.httpClient
+      .post<AuthorizedResponseModel>(`${baseUrl}/auth/register`, registerModel)
       .pipe(
         map(resp => {
           return this.handleAuthSuccess(resp);

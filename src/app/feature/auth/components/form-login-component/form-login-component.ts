@@ -6,11 +6,11 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { NotificationService } from '../../../../core/services/notification-service';
 
 import { AuthorizedResponseModel } from '../../models/authorized-response-model';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-form-login-component',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './form-login-component.html',
   styleUrl: './form-login-component.css',
 })

@@ -1,0 +1,83 @@
+<form class="space-y-5" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label class="text-sm font-medium text-slate-700 dark:text-slate-200 mb-1"> Nombre </label>
+    <input
+      name="firstName"
+      formControlName="firstName"
+      type="text"
+      placeholder="Tu nombre"
+      class="w-full px-4 py-2 rounded-lg border focus:ring-2 focus:ring-indigo-400 outline-none transition-shadow text-slate-900 dark:text-slate-100 bg-white/60 dark:bg-slate-800/50"
+    />
+    @if(submitted() && registerForm.get('firstName')?.hasError('required') ) {
+    <p class="mt-2 text-xs text-rose-600">El nombre es requerido</p>
+    }
+  </div>
+  <div>
+    <label class="text-sm font-medium text-slate-700 dark:text-slate-200 mb-1"> Apellido </label>
+    <input
+      name="lastName"
+      formControlName="lastName"
+      type="text"
+      placeholder="Tu apellido"
+      class="w-full px-4 py-2 rounded-lg border focus:ring-2 focus:ring-indigo-400 outline-none transition-shadow text-slate-900 dark:text-slate-100 bg-white/60 dark:bg-slate-800/50"
+    />
+    @if(submitted() && registerForm.get('lastName')?.hasError('required') ) {
+    <p class="mt-2 text-xs text-rose-600">El apellido es requerido</p>
+    }
+  </div>
+  <div>
+    <label class="text-sm font-medium text-slate-700 dark:text-slate-200 mb-1">
+      Correo Electrónico
+    </label>
+    <input
+      name="email"
+      formControlName="email"
+      type="email"
+      placeholder="Tu correo electrónico"
+      class="w-full px-4 py-2 rounded-lg border focus:ring-2 focus:ring-indigo-400 outline-none transition-shadow text-slate-900 dark:text-slate-100 bg-white/60 dark:bg-slate-800/50"
+    />
+    @if(submitted() && registerForm.get('email')?.hasError('required') ) {
+    <p class="mt-2 text-xs text-rose-600">El correo electrónico es requerido</p>
+    } @if(submitted() && registerForm.get('email')?.hasError('email') ) {
+    <p class="mt-2 text-xs text-rose-600">El correo electrónico no es válido</p>
+    }
+  </div>
+  <div>
+    <label class="block text -sm font-medium text-slate-700 dark:text-slate-200 mb-1">
+      Contraseña
+    </label>
+    <input
+      name="password"
+      formControlName="password"
+      type="password"
+      placeholder="********"
+      class="w-full px-4 py-2 rounded-lg border focus:ring-2 focus -ring-indigo-400 outline-none transition-shadow text-slate-900 dark:text-slate-100 bg-white/60 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700"
+    />
+    @if(submitted() && registerForm.get('password')?.hasError('required') ) {
+    <p class="mt-2 text-xs text-rose-600">La contraseña es requerida</p>
+    }
+  </div>
+  <div>
+    <label class="block text -sm font-medium text-slate-700 dark:text-slate-200 mb-1">
+      Confirmar Contraseña
+    </label>
+    <input
+      name="confirmPassword"
+      formControlName="confirmPassword"
+      type="password"
+      placeholder="********"
+      class="w-full px-4 py-2 rounded-lg border focus:ring-2 focus -ring-indigo-400 outline-none transition-shadow text-slate-900 dark:text-slate-100 bg-white/60 dark:bg-slate-800/50 border-slate-200 dark:border-slate-700"
+    />
+    @if(submitted() && registerForm.get('confirmPassword')?.hasError('required') ) {
+    <p class="mt-2 text-xs text-rose-600">La confirmación de la contraseña es requerida</p>
+    } @if(submitted() && registerForm.hasError('passwordMismatch') ) {
+    <p class="mt-2 text-xs text-rose-600">Las contraseñas no coinciden</p>
+    }
+  </div>
+  <button
+    type="submit"
+    class="cursor-pointer text-white bg-indigo-600 hover:bg-indigo-700 px-6 py-2 rounded-lg font-medium w-full disabled:opacity-50 disabled:cursor-not-allowed"
+  >
+    Registrar
+  </button>
+</form>

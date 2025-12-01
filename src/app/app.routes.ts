@@ -23,6 +23,11 @@ export const routes: Routes = [
                 loadComponent: () => import('./feature/auth/pages/login-page/login-page').then(c => c.LoginPage),
                 canActivate: [noAuthenticatedGuard]
             },
+            {
+                path: 'register',
+                loadComponent: () => import('./feature/auth/pages/register-page/register-page').then(c => c.RegisterPage),
+                canActivate: [noAuthenticatedGuard]
+            },
         ]
     },
 
