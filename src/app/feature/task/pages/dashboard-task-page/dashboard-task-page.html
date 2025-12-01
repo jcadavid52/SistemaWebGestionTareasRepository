@@ -11,7 +11,7 @@
         <p
           class="text-gray-900 dark:text-white text-4xl font-black leading-tight tracking-[-0.033em]"
         >
-          Bienvenido de nuevo, {{user()?.fullName}}!
+          Bienvenido de nuevo, {{ user()?.fullName }}!
         </p>
         <p class="text-gray-500 dark:text-gray-400 text-base font-normal leading-normal">
           Aquí tienes un resumen de tus tareas para hoy.
@@ -20,48 +20,84 @@
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
       <div
-        class="flex flex-col gap-2 rounded-xl p-6 bg-white border border-gray-200 dark:bg-background-dark dark:border-gray-700"
+        class="flex flex-col gap-2 rounded-xl p-6 border border-gray-200 dark:bg-background-dark dark:border-gray-700"
       >
         <div class="flex items-center justify-between">
           <p class="text-gray-800 dark:text-gray-200 text-base font-medium leading-normal">
             Tareas totales
           </p>
           <div class="p-2 bg-primary/10 rounded-lg text-primary">
-            <span class="material-symbols-outlined">list_alt</span>
+            <span class="material-symbols-outlined">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="24px"
+                viewBox="0 -960 960 960"
+                width="24px"
+                fill="currentColor"
+              >
+                <path
+                  d="M320-280q17 0 28.5-11.5T360-320q0-17-11.5-28.5T320-360q-17 0-28.5 11.5T280-320q0 17 11.5 28.5T320-280Zm0-160q17 0 28.5-11.5T360-480q0-17-11.5-28.5T320-520q-17 0-28.5 11.5T280-480q0 17 11.5 28.5T320-440Zm0-160q17 0 28.5-11.5T360-640q0-17-11.5-28.5T320-680q-17 0-28.5 11.5T280-640q0 17 11.5 28.5T320-600Zm120 320h240v-80H440v80Zm0-160h240v-80H440v80Zm0-160h240v-80H440v80ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z"
+                />
+              </svg>
+            </span>
           </div>
         </div>
         <p class="text-gray-900 dark:text-white tracking-light text-4xl font-bold leading-tight">
-          {{totalCounts()}}
+          {{ totalCounts() }}
         </p>
       </div>
       <div
-        class="flex flex-col gap-2 rounded-xl p-6 bg-white border border-gray-200 dark:bg-background-dark dark:border-gray-700"
+        class="flex flex-col gap-2 rounded-xl p-6 border border-gray-200 dark:bg-background-dark dark:border-gray-700"
       >
         <div class="flex items-center justify-between">
           <p class="text-gray-800 dark:text-gray-200 text-base font-medium leading-normal">
             Completadas
           </p>
           <div class="p-2 bg-green-500/10 rounded-lg text-green-600 dark:text-green-400">
-            <span class="material-symbols-outlined">check_circle</span>
+            <span class="material-symbols-outlined">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="24px"
+                viewBox="0 -960 960 960"
+                width="24px"
+                fill="currentColor"
+              >
+                <path
+                  d="m424-296 282-282-56-56-226 226-114-114-56 56 170 170Zm56 216q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"
+                />
+              </svg>
+            </span>
           </div>
         </div>
         <p class="text-gray-900 dark:text-white tracking-light text-4xl font-bold leading-tight">
-          {{completed()}}
+          {{ completed() }}
         </p>
       </div>
       <div
-        class="flex flex-col gap-2 rounded-xl p-6 bg-white border border-gray-200 dark:bg-background-dark dark:border-gray-700"
+        class="flex flex-col gap-2 rounded-xl p-6 border border-gray-200 dark:bg-background-dark dark:border-gray-700"
       >
         <div class="flex items-center justify-between">
           <p class="text-gray-800 dark:text-gray-200 text-base font-medium leading-normal">
             Pendientes
           </p>
           <div class="p-2 bg-yellow-500/10 rounded-lg text-yellow-600 dark:text-yellow-400">
-            <span class="material-symbols-outlined">pending</span>
+            <span class="material-symbols-outlined text-neutral-700 dark:text-neutral-200">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="24px"
+                viewBox="0 -960 960 960"
+                width="24px"
+                fill="currentColor"
+              >
+                <path
+                  d="M280-420q25 0 42.5-17.5T340-480q0-25-17.5-42.5T280-540q-25 0-42.5 17.5T220-480q0 25 17.5 42.5T280-420Zm200 0q25 0 42.5-17.5T540-480q0-25-17.5-42.5T480-540q-25 0-42.5 17.5T420-480q0 25 17.5 42.5T480-420Zm200 0q25 0 42.5-17.5T740-480q0-25-17.5-42.5T680-540q-25 0-42.5 17.5T620-480q0 25 17.5 42.5T680-420ZM480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"
+                />
+              </svg>
+            </span>
           </div>
         </div>
         <p class="text-gray-900 dark:text-white tracking-light text-4xl font-bold leading-tight">
-          {{pending()}}
+          {{ pending() }}
         </p>
       </div>
     </div>

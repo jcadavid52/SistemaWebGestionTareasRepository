@@ -1,18 +1,28 @@
 <div class="flex p-4 lg:gap-3">
-  <div  class="max-w-3xl basis-full lg:basis-[65%]">
+  <div class="max-w-3xl basis-full lg:basis-[65%]">
     <header class="flex flex-wrap items-center justify-between gap-4 whitespace-nowrap py-3">
       <div class="flex items-center gap-4">
         <p class="dark:text-white text-4xl font-black leading-tight tracking-[-0.033em]">Tareas</p>
-           <button
+        <button
           class="cursor-pointer lg:hidden p-2 rounded-md bg-gray-100 dark:hover:bg-gray-700 text-danger"
           (click)="onModal()"
         >
-          <span class="material-symbols-outlined text-lg">add</span>
+          <span class="material-symbols-outlined text-lg">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="24px"
+              viewBox="0 -960 960 960"
+              width="24px"
+              fill="currentColor"
+            >
+              <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z" />
+            </svg>
+          </span>
         </button>
       </div>
 
       <div class="flex items-center gap-4">
-        <div>
+        <div class="dark:text-gray-200">
           <label class="m-2" for="status-filter">Filtrar</label>
           <select
             class="w-48 rounded-lg border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 py-2 pl-3 pr-8 text-sm focus:border-primary focus:ring-primary dark:placeholder-gray-500 text-[#333333] dark:text-gray-200"
@@ -44,13 +54,13 @@
   <div class="hidden lg:block w-96 max-w-md max-h-[400px] overflow-auto basis-[35%]">
     <app-form-add-task-component></app-form-add-task-component>
   </div>
+  <ng-template #modalAddFormTask>
+    <mat-dialog-content>
+      <app-form-add-task-component></app-form-add-task-component>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+      <button [mat-dialog-close]="true">Cancelar</button>
+    </mat-dialog-actions>
+  </ng-template>
 </div>
 
-<ng-template #modalAddFormTask>
-  <mat-dialog-content>
-    <app-form-add-task-component></app-form-add-task-component>
-  </mat-dialog-content>
-  <mat-dialog-actions>
-    <button [mat-dialog-close]="true">Cancelar</button>
-  </mat-dialog-actions>
-</ng-template>

@@ -1,15 +1,19 @@
 <div class="flex justify-between m-2">
   <button (click)="handlePrevious()">
     <span class="cursor-pointer material-symbols-outlined left-3 top-1/2 -translate-y-1/2 text-gray-400"
-      >skip_previous</span
+      >
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M220-240v-480h80v480h-80Zm520 0L380-480l360-240v480Zm-80-240Zm0 90v-180l-136 90 136 90Z"/></svg>
+      </span
     >
   </button>
   <button (click)="handleNext()">
     <span class="cursor-pointer material-symbols-outlined left-3 top-1/2 -translate-y-1/2 text-gray-400"
-      >skip_next</span
+      >
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M660-240v-480h80v480h-80Zm-440 0v-480l360 240-360 240Zm80-240Zm0 90 136-90-136-90v180Z"/></svg>
+      </span
     >
   </button>
 </div>
 @if(totalPages() > 0){
-    <span>Página {{ pageNumberSignal() }} de {{totalPages()}}</span>
+    <span class="dark:text-gray-200">Página {{ pageNumberSignal() }} de {{totalPages()}}</span>
 }
