@@ -8,6 +8,7 @@ import { AuthTokenService } from './auth-token-service';
 import { catchError, map, Observable, of, throwError } from 'rxjs';
 import { RefreshTokenModel } from '../models/refresh-token-model';
 import { RegisterModel } from '../models/register-model';
+import { Router } from '@angular/router';
 
 
 type AuthStatus = 'checking' | 'authenticated' | 'not-authenticated';
@@ -20,6 +21,7 @@ export class AuthApiService {
 
   private httpClient = inject(HttpClient);
   private authTokenService = inject(AuthTokenService);
+  router = inject(Router);
 
   private _user = signal<UserModel | null>(
     JSON.parse(sessionStorage.getItem('user') || 'null')
@@ -64,7 +66,7 @@ export class AuthApiService {
       );
   }
 
-  register(registerModel:RegisterModel): Observable<boolean> {
+  register(registerModel: RegisterModel): Observable<boolean> {
     return this.httpClient
       .post<AuthorizedResponseModel>(`${baseUrl}/auth/register`, registerModel)
       .pipe(
@@ -84,7 +86,9 @@ export class AuthApiService {
           map(resp => {
             return this.handleAuthSuccess(resp);
           }),
-          catchError(err => this.handleAuthError(err))
+          catchError(err => {
+            return this.handleAuthError(err);
+          })
         );
     }
     return of(false);
@@ -110,6 +114,7 @@ export class AuthApiService {
     this._refreshToken.set(null);
     this._authStatus.set('not-authenticated');
     this.authTokenService.clearAuthToken();
+    this.router.navigate(['auth/login']);
   }
 
   private handleAuthError(error: any) {

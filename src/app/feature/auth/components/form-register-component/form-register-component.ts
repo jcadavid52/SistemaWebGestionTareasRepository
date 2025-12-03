@@ -4,6 +4,7 @@ import { NotificationService } from '../../../../core/services/notification-serv
 import { AbstractControl, FormBuilder, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RegisterModel } from '../../models/register-model';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-form-register-component',
@@ -40,22 +41,29 @@ export class FormRegisterComponent {
     return null;
   }
 
-   onSubmit() {
+  onSubmit() {
     this.submitted.set(true);
     if (this.registerForm.valid) {
-    console.log(this.registerForm.value);
-    this.authApiService.register(this.registerForm.value as RegisterModel).subscribe({
-      next: (registered) => {
-        if (registered) {
-          this.notificationService.showSuccessNotification("Registro exitoso.");
-          this.router.navigate(['task/dashboard']);
-        } },
-      error: (error) => {
-        this.notificationService.showErrorNotification("Error durante el registro. Inténtelo de nuevo.");
-      }
-    })
+      console.log(this.registerForm.value);
+      this.authApiService.register(this.registerForm.value as RegisterModel).subscribe({
+        next: (registered) => {
+          if (registered) {
+            this.notificationService.showSuccessNotification("Registro exitoso.");
+            this.router.navigate(['task/dashboard']);
+          }
+        },
+        error: (error: HttpErrorResponse) => {
+          if (error.status === 400) {
+            {
+              this.notificationService.showErrorNotification("Revise los datos ingresados.");
+            }
+          }else if(error.status === 409){
+            this.notificationService.showErrorNotification("El correo electrónico ya está en uso.");
+          }
+        }
+      })
     }
     return;
-   }
+  }
 
 }

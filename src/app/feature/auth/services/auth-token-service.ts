@@ -29,7 +29,8 @@ export class AuthTokenService {
     this.accessToken = null;
     this.refreshToken = null;
     localStorage.removeItem('access_token');
-    localStorage.removeItem('refresh_token');
+    sessionStorage.removeItem('refresh_token');
+    sessionStorage.removeItem('user');
   }
 
   setTotalTask(total:number){

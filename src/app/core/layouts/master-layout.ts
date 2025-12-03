@@ -14,7 +14,6 @@ import { useTaskDashboardQuery } from '../../feature/task/hooks/dashboard-query-
 export class MasterLayout {
   authApiService = inject(AuthApiService);
   taskApiService = inject(TaskApiService);
-  router = inject(Router);
   user = this.authApiService.user
   dashboard = useTaskDashboardQuery();
   totalCountTask = computed(() => this.dashboard.data()?.total);
@@ -24,7 +23,6 @@ export class MasterLayout {
 
   closeSession() {
     this.authApiService.logout();
-    this.router.navigate(['auth/login']);
   }
 
   toggleMenu(){

@@ -2,7 +2,7 @@ import { HttpErrorResponse, HttpHandlerFn, HttpInterceptorFn, HttpRequest } from
 import { AuthApiService } from '../../feature/auth/services/auth-api-service';
 import { inject } from "@angular/core";
 import { AuthTokenService } from '../../feature/auth/services/auth-token-service';
-import { BehaviorSubject, catchError, filter, switchMap, take, throwError } from "rxjs";
+import { BehaviorSubject, catchError, filter, finalize, switchMap, take, throwError } from "rxjs";
 
 let isRefreshing = false;
 const refreshSubject = new BehaviorSubject<string | null>(null);
@@ -11,7 +11,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
     const authApi = inject(AuthApiService);
     const authToken = inject(AuthTokenService);
 
-    if (req.url.includes('/auth/login')) {
+    if (req.url.includes('/auth/login') || req.url.includes('/auth/refresh-token')) {
         return next(req);
     }
 
@@ -37,7 +37,6 @@ function handle401Error(req: HttpRequest<any>, next: HttpHandlerFn, authToken: A
     if (!isRefreshing) {
         isRefreshing = true;
         refreshSubject.next(null);
-
         return authApi.refreshToken().pipe(
             switchMap(success => {
                 isRefreshing = false;
@@ -55,8 +54,12 @@ function handle401Error(req: HttpRequest<any>, next: HttpHandlerFn, authToken: A
                     })
                 );
             }),
+            finalize(() => {
+                isRefreshing = false;
+            }),
             catchError(err => {
                 isRefreshing = false;
+                authApi.logout();
                 return throwError(() => err);
             })
         );
