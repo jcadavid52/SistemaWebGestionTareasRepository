@@ -14,12 +14,12 @@ import { useTaskDashboardQuery } from '../../feature/task/hooks/dashboard-query-
 export class MasterLayout {
   authApiService = inject(AuthApiService);
   taskApiService = inject(TaskApiService);
+  
   user = this.authApiService.user
   dashboard = useTaskDashboardQuery();
   totalCountTask = computed(() => this.dashboard.data()?.total);
 
   isMenuOpen = signal(false);
-
 
   closeSession() {
     this.authApiService.logout();

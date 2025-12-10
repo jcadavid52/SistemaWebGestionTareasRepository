@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthTokenService {
+export class StorageService {
   private accessToken: string | null = null;
   private refreshToken: string | null = null;
 

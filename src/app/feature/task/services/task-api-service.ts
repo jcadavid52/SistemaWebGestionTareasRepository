@@ -2,11 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { TasksResponseModel } from '../models/tasks-response-model';
 import { environment } from '../../../../environments/environment.development';
-import { catchError, map, Observable, of, tap, throwError } from 'rxjs';
+import { catchError, map, Observable, tap, throwError } from 'rxjs';
 import { TaskCreateModel } from '../models/task-create-model';
 import { TaskCreateResponse } from '../models/task-create-response-model';
 import { TaskDashboardResponse } from '../models/task-dashboard-response-model';
-import { AuthTokenService } from '../../auth/services/auth-token-service';
 import { TaskUpdateModel } from '../models/task-update-model';
 import { TaskResponseModel } from '../models/task-response-model';
 
@@ -102,6 +101,4 @@ export class TaskApiService {
     this._pending.set(pending);
     this._totalCounts.set(total);
   }
-
-
 }

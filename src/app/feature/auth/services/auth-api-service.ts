@@ -4,7 +4,7 @@ import { LoginModel } from '../models/login-model';
 import { environment } from '../../../../environments/environment.development';
 import { UserModel } from '../models/user-model';
 import { AuthorizedResponseModel } from '../models/authorized-response-model';
-import { AuthTokenService } from './auth-token-service';
+import { StorageService } from './storage-service';
 import { catchError, map, Observable, of, throwError } from 'rxjs';
 import { RefreshTokenModel } from '../models/refresh-token-model';
 import { RegisterModel } from '../models/register-model';
@@ -20,15 +20,15 @@ const baseUrl = environment.baseUrl;
 export class AuthApiService {
 
   private httpClient = inject(HttpClient);
-  private authTokenService = inject(AuthTokenService);
+  private storageService = inject(StorageService);
   router = inject(Router);
 
   private _user = signal<UserModel | null>(
     JSON.parse(sessionStorage.getItem('user') || 'null')
   );
   private _authStatus = signal<AuthStatus>('checking');
-  private _accessToken = signal<string | null>(this.authTokenService.getAccessToken());
-  private _refreshToken = signal<string | null>(this.authTokenService.getRefreshToken());
+  private _accessToken = signal<string | null>(this.storageService.getAccessToken());
+  private _refreshToken = signal<string | null>(this.storageService.getRefreshToken());
 
   refreshTokenModel: RefreshTokenModel = {
     refreshToken: ''
@@ -101,8 +101,8 @@ export class AuthApiService {
     this._accessToken.set(accessToken);
     this._refreshToken.set(refreshToken);
 
-    this.authTokenService.setAccessToken(accessToken);
-    this.authTokenService.setRefreshToken(refreshToken);
+    this.storageService.setAccessToken(accessToken);
+    this.storageService.setRefreshToken(refreshToken);
     sessionStorage.setItem('user', JSON.stringify(user));
 
     return true;
@@ -113,7 +113,7 @@ export class AuthApiService {
     this._accessToken.set(null);
     this._refreshToken.set(null);
     this._authStatus.set('not-authenticated');
-    this.authTokenService.clearAuthToken();
+    this.storageService.clearAuthToken();
     this.router.navigate(['auth/login']);
   }
 
