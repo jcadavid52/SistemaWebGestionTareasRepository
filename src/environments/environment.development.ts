@@ -1,3 +1,6 @@
 export const environment = {
-  baseUrl: 'https://localhost:7122/api'
+  baseUrl: 'http://localhost:6055/api'
+  //aseUrl: 'https://localhost:7122/api'
+
+  //baseUrl: 'https://verbose-winner-74ggr9vwx5vcrpqg-6055.app.github.dev/api'
 };

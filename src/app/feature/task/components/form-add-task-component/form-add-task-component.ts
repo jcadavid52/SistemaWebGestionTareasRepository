@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, EventEmitter, inject, Output, signal } from '@angular/core';
 import { TaskApiService } from '../../services/task-api-service';
 import { NotificationService } from '../../../../core/services/notification-service';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -14,6 +14,8 @@ import { QueryClient } from '@tanstack/angular-query-experimental';
   styleUrl: './form-add-task-component.css',
 })
 export class FormAddTaskComponent {
+
+  @Output() taskAdded = new EventEmitter<void>();
 
   queryClient = inject(QueryClient);
   taskApiService = inject(TaskApiService);
@@ -39,6 +41,7 @@ export class FormAddTaskComponent {
             queryKey: ['tasks']
           });
           this.queryClient.invalidateQueries({ queryKey: ['tasks-dashboard'] });
+          this.taskAdded.emit();
         }),
         error: (error: HttpErrorResponse) => {
           if (error.status === 400) {

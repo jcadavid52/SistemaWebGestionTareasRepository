@@ -1,4 +1,4 @@
-import { Component, inject, signal, EventEmitter, TemplateRef, ViewChild } from '@angular/core';
+import { Component, inject, signal, TemplateRef, ViewChild } from '@angular/core';
 import { ListTaskComponent } from "../../components/list-task-component/list-task-component";
 import { FormAddTaskComponent } from "../../components/form-add-task-component/form-add-task-component";
 import { TaskApiService } from '../../services/task-api-service';
@@ -15,16 +15,17 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
   styleUrl: './screen-list-task-page.css',
 })
 export class ScreenListTaskPage {
+
   status = signal('');
   pageNumber = signal(1);
-  modalAddForm = signal(false);
+
   taskApiService = inject(TaskApiService);
   dialogModal = inject(MatDialog);
+
   totalFilterCountTask = this.taskApiService.totalFilterCounts;
   totalCountTask = this.taskApiService.totalCounts;
 
   @ViewChild('modalAddFormTask') modalAddFormTask!: TemplateRef<any>;
-
 
   tasksQuery = injectQuery<TasksResponseModel>(() => ({
     queryKey: [
@@ -55,5 +56,9 @@ export class ScreenListTaskPage {
     this.dialogModal.open(this.modalAddFormTask, {
       width: '350px',
     });
+  }
+
+  onCloseModal() {
+    this.dialogModal.closeAll();
   }
 }
