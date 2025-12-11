@@ -54,12 +54,12 @@ export class FormRegisterComponent {
         },
         error: (error: HttpErrorResponse) => {
           if (error.status === 400) {
-            {
-              this.notificationService.showErrorNotification("Revise los datos ingresados.");
-            }
-          }else if(error.status === 409){
+            debugger
+            this.notificationService.showErrorNotification("Revise los datos ingresados.");
+          } else if (error.status === 409) {
             this.notificationService.showErrorNotification("El correo electrónico ya está en uso.");
           }
+
         }
       })
     }

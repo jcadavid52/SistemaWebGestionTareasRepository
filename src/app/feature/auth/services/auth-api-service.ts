@@ -73,7 +73,7 @@ export class AuthApiService {
         map(resp => {
           return this.handleAuthSuccess(resp);
         }),
-        catchError(err => this.handleAuthError(err))
+        catchError(err => throwError(() => err))
       );
   }
 

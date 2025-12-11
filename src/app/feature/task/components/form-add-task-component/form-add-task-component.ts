@@ -33,7 +33,6 @@ export class FormAddTaskComponent {
   onSubmit() {
     this.submitted.set(true);
     if (this.taskForm.valid) {
-      console.log(this.taskForm.value)
       this.taskApiService.createTask(this.taskForm.value as TaskCreateModel).subscribe({
         next: ((resp) => {
           this.notificationService.showSuccessNotification("Tarea registrada con exito");
